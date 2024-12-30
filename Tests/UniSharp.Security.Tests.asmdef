@@ -1,0 +1,18 @@
+{
+    "name": "UniSharp.Security.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:99ad9da516f32e14985217b46e7f2250"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
