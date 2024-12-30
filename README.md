@@ -1,7 +1,7 @@
 
 # UniSharp.Security.Cryptography
 
-A flexible and extensible cryptography library for Unity, supporting multiple encryption algorithms like DES and AES. This library allows developers to easily integrate encryption and decryption functionalities into Unity projects, with customizable options and Unity editor integration.
+A flexible and extensible cryptography and obfuscation library for Unity, supporting multiple encryption algorithms like DES and AES. This library allows developers to easily integrate encryption, decryption, and runtime value obfuscation functionalities into Unity projects, with customizable options and Unity editor integration.
 
 ---
 
@@ -13,6 +13,11 @@ A flexible and extensible cryptography library for Unity, supporting multiple en
     - AES-128
     - AES-192
     - AES-256
+
+- **Runtime Obfuscation**:
+  - Protects sensitive values like integers, floats, doubles, and more using XOR-based obfuscation.
+  - Includes built-in tampering detection mechanisms.
+  - Seamlessly integrates with JSON serialization.
 
 - **Unity Integration**:
   - Configurable via ScriptableObject (`CryptographySettings`).
@@ -85,6 +90,26 @@ Interface for cryptographer implementations.
 ```csharp
 string Encrypt(string plainText);
 string Decrypt(string cipherText);
+```
+
+### **Obfuscated Types**
+Runtime obfuscation is provided for sensitive data types like `int`, `float`, `double`, `long`, and `ulong`. These types use XOR-based obfuscation and include tamper detection.
+
+#### Example:
+```csharp
+using UniSharp.Security.Obfuscation;
+
+// Assigning and retrieving obfuscated values
+ObfuscateInt secureInt = 42; // Automatically obfuscates the value
+int actualValue = secureInt; // Deobfuscates to retrieve the original value
+
+// Cheat detection
+ObfuscateInt.OnCheetDetected += (value) => Debug.Log("Tampering detected!");
+secureInt = 99; // If tampered, triggers the cheat detection event
+
+// Serialization example
+string json = JsonConvert.SerializeObject(secureInt); // Converts to a plain number
+ObfuscateInt deserialized = JsonConvert.DeserializeObject<ObfuscateInt>(json);
 ```
 
 ---
